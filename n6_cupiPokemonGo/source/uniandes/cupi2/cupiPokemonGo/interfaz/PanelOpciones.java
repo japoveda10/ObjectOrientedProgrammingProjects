@@ -96,7 +96,7 @@ public class PanelOpciones extends JPanel implements ActionListener {
 		
 		if (comando.equals(CARGAR)) 
 		{
-			//ventana.cargar();
+			ventana.cargarJuego();
 		} 
 		else if (comando.equals(REINICIAR)) 
 		{

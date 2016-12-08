@@ -1,7 +1,10 @@
 package uniandes.cupi2.cupiPokemonGo.interfaz;
 
 import java.awt.BorderLayout;
+import java.io.FileInputStream;
+import java.util.Properties;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -76,6 +79,39 @@ public class InterfazCupiPokemonGo extends JFrame {
 	//---------------------------------------------------------------------------------------
 	// Requerimientos funcionales
 	//---------------------------------------------------------------------------------------
+	
+	public void cargarJuego()
+	{
+		JFileChooser fc = new JFileChooser("./data");
+		fc.setDialogTitle("Seleccionar archivo");
+
+		if( fc.showOpenDialog( this ) == JFileChooser.APPROVE_OPTION ) 
+		{ 
+			try 
+			{ 
+				Properties propiedades = new Properties( ); 
+				propiedades.load( new FileInputStream( fc.getSelectedFile( ) ) ); 
+
+				mundo.cargarTableroCupiPokemonGo(propiedades);
+//
+//				panelCrucigrama.refrescarElPanel(mundo.darFilasCrucigrama(), mundo.darColumnasCrucigrama(), mundo.darCasilla());
+//				validate();
+
+
+				panelMapa.setVisible(true);
+
+			} 
+			catch( Exception e ) 
+			{ 
+				System.out.println(e.getMessage());
+				JOptionPane.showMessageDialog( this,  
+						"Error del archivo, formato inválido.",  
+						"Error",  
+						JOptionPane.ERROR_MESSAGE ); 
+
+			} 
+		} 
+	}
 	
 	//---------------------------------------------------------------------------------------
 	// Puntos de extension

@@ -1,5 +1,7 @@
 package uniandes.cupi2.cupiPokemonGo.mundo;
 
+import java.util.Properties;
+
 public class TableroCupiPokemonGo {
 	
 	//---------------------------------------------------------------------------------------
@@ -14,6 +16,10 @@ public class TableroCupiPokemonGo {
 	
 	private Casilla[][] casillas;
 	
+	private int numeroMovimientos;
+	
+	private int numeroPokemonesCapturados;
+	
 	//---------------------------------------------------------------------------------------
 	// Constructores
 	//---------------------------------------------------------------------------------------
@@ -23,12 +29,40 @@ public class TableroCupiPokemonGo {
 		juegoCargado = false;
 		numeroFilas = 0;
 		numeroColumnas = 0;
-		casillas = new Casilla [numeroFilas][numeroColumnas];
+		numeroMovimientos = 0;
+		numeroPokemonesCapturados = 0;
 	}
 	
 	//---------------------------------------------------------------------------------------
 	// Metodos
 	//---------------------------------------------------------------------------------------
+	
+	public void cargarTableroCupiPokemonGo(Properties pPropiedades) throws Exception
+	{
+		try 
+		{ 
+			String numFilas = pPropiedades.getProperty("mapa.tamanho");
+			numeroFilas = Integer.parseInt(numFilas);
+
+
+			String numColumnas = pPropiedades.getProperty("mapa.tamanho");
+			numeroColumnas = Integer.parseInt(numColumnas);     
+
+			casillas = new Casilla[numeroFilas][numeroColumnas];
+			
+			String numMovimientos = pPropiedades.getProperty("mapa.movimientos");
+			numeroMovimientos = Integer.parseInt(numMovimientos); 
+			
+			juegoCargado = true;
+
+		} 
+		catch(Exception e) 
+		{ 
+			//Lanzamiento de posibles excepciones producidas al cargar el archivo properties. 
+			e.printStackTrace();
+			throw new Exception("Error, las propiedades tienen un formato inválido." );  
+		} 
+	}
 	
 	public boolean getJuegoCargado()
 	{
