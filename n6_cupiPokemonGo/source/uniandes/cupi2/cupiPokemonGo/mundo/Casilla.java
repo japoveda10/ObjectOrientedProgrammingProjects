@@ -6,9 +6,11 @@ public class Casilla {
 	// Atributos
 	// ---------------------------------------------------------------------------------------
 
-	private boolean vacia;
+	private int tipoCasilla;
 
 	private int numeroVisitas;
+	
+	private String pokemon;
 
 	// ---------------------------------------------------------------------------------------
 	// Constructores
@@ -16,22 +18,23 @@ public class Casilla {
 
 	public Casilla()
 	{
-		vacia = true;
+		tipoCasilla = 0;
 		numeroVisitas = 0;
+		pokemon = "";
 	}
 
 	// ---------------------------------------------------------------------------------------
 	// Metodos
 	// ---------------------------------------------------------------------------------------
 
-	public boolean getVacia() 
+	public int getTipoCasilla()
 	{
-		return vacia;
+		return tipoCasilla;
 	}
 
-	public void setVacia(boolean pVacia) 
+	public void setTipoCasilla(int pTipoCasilla)
 	{
-		vacia = pVacia;
+		tipoCasilla = pTipoCasilla;
 	}
 
 	public int getNumeroVisitas() 
@@ -46,6 +49,16 @@ public class Casilla {
 	public void aumentarNumeroVisitas()
 	{
 		numeroVisitas++;
+	}
+	
+	public String getPokemon()
+	{
+		return pokemon;
+	}
+	
+	public void setPokemon(String pPokemon)
+	{
+		pokemon = pPokemon;
 	}
 
 }
