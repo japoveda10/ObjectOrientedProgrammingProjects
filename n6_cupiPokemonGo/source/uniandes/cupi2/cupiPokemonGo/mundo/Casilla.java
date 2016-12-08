@@ -16,9 +16,9 @@ public class Casilla {
 	// Constructores
 	// ---------------------------------------------------------------------------------------
 
-	public Casilla()
+	public Casilla(int pTipoCasilla)
 	{
-		tipoCasilla = 0;
+		tipoCasilla = pTipoCasilla;
 		numeroVisitas = 0;
 		pokemon = "";
 	}
@@ -42,7 +42,8 @@ public class Casilla {
 		return numeroVisitas;
 	}
 
-	public void setNumeroVisitas(int pNumeroVisitas) {
+	public void setNumeroVisitas(int pNumeroVisitas) 
+	{
 		numeroVisitas = pNumeroVisitas;
 	}
 	

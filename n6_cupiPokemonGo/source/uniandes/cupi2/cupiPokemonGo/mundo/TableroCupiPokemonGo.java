@@ -11,16 +11,17 @@ public class TableroCupiPokemonGo {
 	private final static int CASILLA_LIBRE = 0;
 	
 	private final static int CASILLA_OBSTACULO = 1;
+		
+	private final static int POKEBOLA = 2;
 	
-	private final static int CUPI_JUGADOR = 2;
+	private final static int POKEMON_1 = 3;
 	
-	private final static int POKEBOLA = 3;
+	private final static int POKEMON_2 = 4;
 	
-	private final static int POKEMON_1 = 4;
+	private final static int POKEMON_3 = 5;
 	
-	private final static int POKEMON_2 = 5;
-	
-	private final static int POKEMON_3 = 6;
+	private final static int CUPI_JUGADOR = 6;
+
 	
 	//---------------------------------------------------------------------------------------
 	// Atributos
@@ -32,11 +33,17 @@ public class TableroCupiPokemonGo {
 	
 	private int numeroColumnas;
 	
-	private Casilla[][] casillas;
+	private Casilla[][] tableroCupiPokemonGo;
+	
+	private Casilla[][] original;
 	
 	private CupiJugador cupiJugador;
 	
 	private int numeroMovimientos;
+	
+	private int posicionInicialX;
+	
+	private int posicionInicialY;
 		
 	//---------------------------------------------------------------------------------------
 	// Constructores
@@ -48,6 +55,8 @@ public class TableroCupiPokemonGo {
 		numeroFilas = 0;
 		numeroColumnas = 0;
 		numeroMovimientos = 0;
+		posicionInicialX = 0;
+		posicionInicialY = 0;
 	}
 	
 	//---------------------------------------------------------------------------------------
@@ -65,10 +74,41 @@ public class TableroCupiPokemonGo {
 			String numColumnas = pPropiedades.getProperty("mapa.tamanho");
 			numeroColumnas = Integer.parseInt(numColumnas);     
 
-			casillas = new Casilla[numeroFilas][numeroColumnas];
+			tableroCupiPokemonGo = new Casilla[numeroFilas][numeroColumnas];
+			original = new Casilla[numeroFilas][numeroColumnas];
 			
 			String numMovimientos = pPropiedades.getProperty("mapa.movimientos");
 			numeroMovimientos = Integer.parseInt(numMovimientos); 
+			
+			for(int i=0; i<numeroFilas; i++)
+			{
+				String variable = pPropiedades.getProperty("mapa.fila"+i);
+				
+				for(int j=0; j<numeroColumnas; j++)
+				{
+					String variablen = "" + variable.charAt(j);
+					
+					int actual = Integer.parseInt(variablen);
+					
+					if(actual == CUPI_JUGADOR)
+					{
+						posicionInicialX = i;
+						posicionInicialY = j;
+						tableroCupiPokemonGo[i][j] = new Casilla(actual);
+						original[i][j] = new Casilla(actual);
+						original[i][j].aumentarNumeroVisitas();
+						tableroCupiPokemonGo[i][j].aumentarNumeroVisitas();
+					}
+					else
+					{
+						tableroCupiPokemonGo[i][j] = new Casilla(actual);
+						original[i][j] = new Casilla(actual);
+					}
+					
+
+					cupiJugador = new CupiJugador(posicionInicialX, posicionInicialY, numeroMovimientos);
+				}
+			}
 			
 			juegoCargado = true;
 
@@ -111,14 +151,9 @@ public class TableroCupiPokemonGo {
 		numeroColumnas = pNumeroColumnas;
 	}
 	
-	public Casilla[][] getCasillas()
+	public Casilla[][] getTableroCupiPokemonGo()
 	{
-		return casillas;
-	}
-	
-	public void setCasillas(Casilla[][] pCasillas)
-	{
-		casillas = pCasillas;
+		return tableroCupiPokemonGo;
 	}
 	
 	public CupiJugador getCupiJugador()
